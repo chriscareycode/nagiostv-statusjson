@@ -1,0 +1,77 @@
+<script type="text/x-handlebars" data-template-name="application">
+
+<div style="margin:5px 0 5px 10px">{{title}}</div>
+
+<div style="margin:0 15px 10px 10px">
+
+{{view App.SomeView}}
+
+</div>
+
+
+
+</script>
+
+<script type="text/x-handlebars" data-template-name="someview">
+
+<div style="margin:5px 0 5px 0px">Current Service Status:</div>
+
+{{#unless arr_service_problems}}
+<div style=color:lime>All Services are UP</div>
+{{/unless}}
+
+{{#each foo in arr_service_problems}}
+{{view App.ServiceProblem contentBinding="App.ServiceProblemController"}}
+{{/each}}
+
+<div style="margin:5px 0 5px 0px">Acknowledged Services:</div>
+
+{{#unless arr_service_problems_acked}}
+<div style=color:lime>No Acknowledged Services</div>
+{{/unless}}
+
+{{#each foo in arr_service_problems_acked}}
+{{view App.ServiceProblem}}
+{{/each}}
+
+<div style="margin:5px 0 5px 0px">Notification History:</div>
+
+{{#unless arr_service_problems_acked}}
+<div style=color:lime>No History</div>
+{{/unless}}
+
+{{#each foo in arr_service_history}}
+
+{{service_plugin_output_clean}} 
+{{view App.ServiceProblem}}
+{{/each}}
+
+
+</script>
+
+
+
+
+
+<script type="text/x-handlebars" data-template-name="service_problem">
+
+<div {{bindAttr class="foo.statusClassBorder"}} style="border-radius:6px;margin:0px 0px 5px 0px;">
+	<div style="margin:5px;font-size:1em;position:relative;">
+		<div style="position:absolute;top:0;right:0;font-size:1.2em;color:#FF7256">{{foo.service_state_duration}}</div>
+		{{foo.service_host.host_name}} ({{foo.service_host.host_address}}) - {{foo.service_description}}<br>
+		<div {{bindAttr class="foo.statusClassText"}}>{{foo.service_status}} - {{foo.service_plugin_output_clean}} </div>
+	</div>
+</div>
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
