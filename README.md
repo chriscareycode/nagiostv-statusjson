@@ -1,4 +1,4 @@
-NagiosTV status-json Edition
+NagiosTV (status-json Edition)
 ------------
 
 ```diff
